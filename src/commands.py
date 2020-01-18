@@ -41,7 +41,7 @@ MAESTRO_COMMANDS = {
 }
 
 
-def get_maestro_command(name: str):
+def get_maestro_command(name: str) -> MaestroCommand:
     """
     Params
     -------
@@ -57,7 +57,10 @@ def get_maestro_command(name: str):
     return mc
 
 
-def format_websocket_message(maestro_command: MaestroCommand, value: Union[str, int, float]):
+def format_websocket_message(
+        maestro_command: MaestroCommand,
+        value: Union[str, int, float]
+    ) -> str:
     """
     Format a Maestro Command and a value to Web Socket message.
     It converts automatically Power (0, 1 -> 40, 1) and Temperature (25°C -> 25 * 2) values .
