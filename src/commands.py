@@ -95,5 +95,5 @@ def format_websocket_message(
             value = 40 if not int(value) else 1
         elif maestrocommand.command_type == 'onoff':
             value = value if value == 1 else 0
-        ws_message = f'{ws_message}|{maestro_command.maestroid)|{writevalue}'
+        ws_message = f'{ws_message}|{maestro_command.maestroid}|{writevalue}'
     return ws_message
