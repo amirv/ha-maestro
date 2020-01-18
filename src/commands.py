@@ -89,11 +89,11 @@ def format_websocket_message(
     if not maestro_command.name == 'GetInfo':
         ws_message = 'C|WriteParametri'
         value = int(value)
-        if maestrocommand.command_type == 'temperature':
+        if maestro_command.command_type == 'temperature':
             value = value * 2
-        elif maestrocommand.command_type == 'onoff40':
+        elif maestro_command.command_type == 'onoff40':
             value = 40 if not int(value) else 1
-        elif maestrocommand.command_type == 'onoff':
+        elif maestro_command.command_type == 'onoff':
             value = value if value == 1 else 0
-        ws_message = f'{ws_message}|{maestro_command.maestroid}|{writevalue}'
+        ws_message = f'{ws_message}|{maestro_command.maestroid}|{value}'
     return ws_message
