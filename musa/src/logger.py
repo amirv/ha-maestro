@@ -8,7 +8,7 @@ def _get_logger(name):
     logger.setLevel(logging.DEBUG)
     formatter = logging.Formatter('[MCZ MUSA %(name)s][%(asctime)s][%(levelname)s] %(message)s')
 
-    file_handler = RotatingFileHandler('activity.log', maxBytes=5000, backupCount=1)
+    file_handler = RotatingFileHandler('mcz_musa.log', maxBytes=5000, backupCount=1)
     file_handler.setLevel(logging.DEBUG)
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)
