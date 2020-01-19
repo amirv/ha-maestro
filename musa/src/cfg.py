@@ -1,7 +1,7 @@
 MQTT_IP = '127.0.0.1'
 MQTT_PORT = 1883
-MQTT_TOPIC_IN = 'in_mcz'
-MQTT_TOPIC_OUT = 'out_mcz'
+MQTT_TOPIC_IN = '/mcz/in'
+MQTT_TOPIC_OUT = '/mcz/out'
 
 MCZ_IP = '192.168.120.1'
 MCZ_PORT = 81

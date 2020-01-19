@@ -8,7 +8,7 @@ import paho.mqtt.client as mqtt
 
 MQTT_IP = '127.0.0.1'
 MQTT_PORT = 1883
-MQTT_TOPIC_OUT = 'out_mcz'
+MQTT_TOPIC_OUT = '/mcz/out'
 
 
 def on_message(client, userdata, message):

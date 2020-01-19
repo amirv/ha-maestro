@@ -7,7 +7,7 @@ import paho.mqtt.client as mqtt
 
 MQTT_IP = '127.0.0.1'
 MQTT_PORT = 1883
-MQTT_TOPIC_IN = 'in_mcz'
+MQTT_TOPIC_IN = '/mcz/in'
 
 
 get_info = { 'command': 'get_info', 'value': 1 }
