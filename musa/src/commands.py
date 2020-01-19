@@ -2,14 +2,14 @@ import queue
 from typing import Union
 
 
-CommandQueue = None
+COMMAND_QUEUE = None
 
 
 def get_command_queue():
-    global CommandQueue
-    if CommandQueue is None:
-        CommandQueue = queue.Queue()
-    return CommandQueue
+    global COMMAND_QUEUE
+    if COMMAND_QUEUE is None:
+        COMMAND_QUEUE = queue.Queue()
+    return COMMAND_QUEUE
 
 
 class MCZCommand:

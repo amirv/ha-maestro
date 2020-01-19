@@ -12,7 +12,7 @@ log = logger.get_logger('MQTT')
 
 
 client = None
-CommandQueue = commands.get_command_queue()
+COMMAND_QUEUE = commands.get_command_queue()
 
 
 def on_connect(*args):
@@ -38,7 +38,7 @@ def on_message(client: mqtt.Client, userdata: Union[Dict, None], message: str) -
     command = commands.get_mcz_command(command) if command else None
     if not command:
         log.info('Unknown command received')
-    CommandQueue.put((command, value))
+    COMMAND_QUEUE.put((command, value))
 
 
 def on_error(*args):

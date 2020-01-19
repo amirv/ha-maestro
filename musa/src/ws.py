@@ -13,7 +13,7 @@ import src.mqtt as mqtt
 
 
 log = logger.get_logger('WebSocket')
-CommandQueue = commands.get_command_queue()
+COMMAND_QUEUE = commands.get_command_queue()
 
 
 def get_stove_info():
@@ -22,7 +22,7 @@ def get_stove_info():
     """
     threading.Timer(cfg.INFO_INTERVAL, get_stove_info).start()
     command, value = commands.get_mcz_command('get_info'), 0
-    CommandQueue.put((command, value))
+    COMMAND_QUEUE.put((command, value))
 
 
 def on_open(ws: websocket.WebSocketApp) -> NoReturn:
@@ -33,8 +33,8 @@ def on_open(ws: websocket.WebSocketApp) -> NoReturn:
     def run():
         while True:
             time.sleep(0.25)
-            while not CommandQueue.empty():
-                command, value = CommandQueue.get()
+            while not COMMAND_QUEUE.empty():
+                command, value = COMMAND_QUEUE.get()
                 ws_message = commands.format_websocket_message(command, value)
                 log.info(f'Sending message: {ws_message}')
                 ws.send(ws_message)
