@@ -1,0 +1,88 @@
+import _thread as thread
+import json
+import threading
+import time
+from typing import NoReturn
+import websocket
+
+import src.cfg as cfg
+import src.logger as logger
+import src.commands as commands
+import src.messages as messages
+import src.mqtt as mqtt
+
+
+log = logger.get_logger('WebSocket')
+CommandQueue = commands.get_command_queue()
+
+
+def get_stove_info():
+    """
+    Get Stove information every `INFO_INTERVAL` seconds.
+    """
+    threading.Timer(cfg.INFO_INTERVAL, get_stove_info).start()
+    command, value = commands.get_mcz_command('get_info'), 0
+    CommandQueue.put((command, value))
+
+
+def on_open(ws: websocket.WebSocketApp) -> NoReturn:
+    """
+    Queue messages consumer. It sends the encoded messages to MCZ Musa Web Socket.
+    """
+    log.info('Successfully connected. Consuming message on MQTT queue')
+    def run():
+        while True:
+            time.sleep(0.25)
+            while not CommandQueue.empty():
+                command, value = CommandQueue.get()
+                ws_message = commands.format_websocket_message(command, value)
+                log.info(f'Sending message: {ws_message}')
+                ws.send(ws_message)
+    thread.start_new_thread(run, ())
+
+
+def on_message(ws: websocket.WebSocketApp, message: str) -> NoReturn:
+    """
+    Parse info message (eg. 01|some|other|values) and publish it to MQTT.
+    """
+    if message.split('|')[0] == '01':
+        # Info message code: 01
+        log.info('Info message received')
+        parsed_message = messages.websocket_message_to_dict(message)
+        client = mqtt.connect()
+        log.info(f'Publishing message to MQTT: {parsed_message}') 
+        client.publish(cfg.MQTT_TOPIC_OUT, json.dumps(parsed_message), 1)
+    else:
+        log.info(f'Unsupported message received {message}')
+
+
+def on_error(ws: websocket.WebSocketApp, error: str) -> NoReturn:
+    log.info(f'WebSocket error: {error}')
+
+
+def _connect() -> NoReturn:
+    """
+    Connect to MCZ Musa Web Socket.
+    """
+    websocket.enableTrace(False)
+    ws = websocket.WebSocketApp(
+        f'ws://{cfg.MCZ_IP}:{cfg.MCZ_PORT}',
+        on_open=on_open,
+        on_message=on_message,
+        on_error=on_error,
+    )
+    ws.run_forever(ping_interval=5, ping_timeout=2)
+
+
+def connect() -> NoReturn:
+    """
+    Connect to MCZ Musa Web Socket and keep the connection alive.
+    """
+    log.info('Connecting to MCZ MUSA')
+    try:
+        while True:
+            _connect()
+            log.info('Web Socket connection lost. Reconnecting to MCZ MUSA in 1 second')
+            time.sleep(1)
+    except KeyboardInterrupt:
+        log.info('Web Socket connection interrupted by user')
