@@ -3,7 +3,7 @@ import os
 from logging.handlers import RotatingFileHandler
 
 
-def _get_logger(name):
+def _get_logger(name: str) -> logging.Logger:
     logger = logging.getLogger(name)
     logger.setLevel(logging.DEBUG)
     formatter = logging.Formatter('[MCZ MUSA %(name)s][%(asctime)s][%(levelname)s] %(message)s')
@@ -21,6 +21,6 @@ def _get_logger(name):
     return logger
 
 
-def get_logger(name: str):
+def get_logger(name: str) -> logging.Logger:
     log = _get_logger(name)
     return log
