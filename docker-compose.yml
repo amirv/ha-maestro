@@ -5,3 +5,9 @@ services:
   mqtt:
     image: eclipse-mosquitto
     network_mode: host
+
+  musa:
+    image: musa
+    build:
+      context: ./
+    network_mode: host
