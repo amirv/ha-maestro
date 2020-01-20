@@ -1,4 +1,5 @@
 # MCZ Musa Maestro Python Controller
+-----------
 
 This program allows controlling remotely your **MCZ Musa** pellet stove and retrieve its status. MCZ Musa Maestro Python Controller uses a MQTT broker to receive commands, convert and send them to the MCZ Musa through a Web Socket connection.
 
