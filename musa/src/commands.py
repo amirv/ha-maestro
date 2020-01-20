@@ -18,11 +18,11 @@ class MCZCommand:
         """
         Params
         ------
-        - `name` (`str`):
+        `name` (`str`):
             user friendly commnd name
-        - `mcz_id` (`int`):
+        `mcz_id` (`int`):
             MCZ Web Socket ID
-        - `command_type` (`str`):
+        `command_type` (`str`):
             Command type
         """
         self.name = name
@@ -66,8 +66,8 @@ def get_mcz_command(name: str) -> MCZCommand:
 
     Returns
     -------
-        `mc` (`MCZCommand`):
-            MCZ Command instance relative to the alias
+    `mc` (`MCZCommand`):
+        MCZ Command instance relative to the alias
     """
     mc = MAESTRO_COMMANDS.get(name)
     return mc

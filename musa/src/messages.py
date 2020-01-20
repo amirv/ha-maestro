@@ -9,11 +9,11 @@ class MCZInformation:
         """
         Params
         ------
-        - `frame_id` (`int`):
+        `frame_id` (`int`):
             Position in RecuperoInfo frame
-        - `name` (`str`)
+        `name` (`str`)
             MCZ command name to be sent via Web Socket
-        - `message_type` (`str`):
+        `message_type` (`str`):
             Message type
         """
         self.frame_id = frame_id
@@ -115,12 +115,12 @@ def format_seconds(seconds: int) -> str:
 
     Params
     ------
-    - `seconds` (`int`):
+    `seconds` (`int`):
         seconds integer
 
     Returns
     ------
-    - `HH:MM:SS` (`str`)
+    `HH:MM:SS` (`str`)
     """
     return str(datetime.timedelta(seconds=seconds))
 
@@ -131,12 +131,12 @@ def websocket_message_to_dict(message: str) -> Dict[str, Union[float, int, str]]
 
     Params
     ------
-    - `message` (`str`):
+    `message` (`str`):
         Web Socket Message
 
     Returns
     ------
-    - `result` (`dict`):
+    `result` (`dict`):
         Formatted result dictionary
     """
     result = {}
