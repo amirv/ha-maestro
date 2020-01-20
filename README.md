@@ -1,7 +1,6 @@
 # MCZ Musa Maestro Python Controller
------------
 
-This program allows controlling remotely your **MCZ Musa** pellet stove and retrieve its status. MCZ Musa Maestro Python Controller uses a MQTT broker to receive commands, convert and send them to the MCZ Musa through a Web Socket connection.
+This program allows controlling remotely your **MCZ Musa** pellet stove and retrieve its status. MCZ Musa Maestro Python Controller uses a MQTT broker to receive JSON commands, convert and send them to the MCZ Musa through a Web Socket connection.
 
 <div style="text-align:center;"><img src="./assets/mcz_musa.jpg"/></div>
 
@@ -9,7 +8,6 @@ It has been tested on MCZ Musa Suite Comfort Air 12 M1.
 
 
 ## Installation
------------
 
 To run MCZ Musa Maestro Python Controller your smart home gateway device connection must be bridged between the stove internal Wi-Fi and your local network. It can be achieved easily with a Raspberry Pi device and, if an Ethernet port is not available, a (Micro) USB-Ethernet adapter.
 
@@ -30,7 +28,6 @@ python3 musa
 
 
 ### Containerization
------------
 
 An alternative to MCZ Musa Maestro Python Controller installation is its `docker` containerization, with lightweight Alpine images. It requires the installation of [docker](https://docs.docker.com/install/) and [docker-compose](https://docs.docker.com/compose/install/). For Raspberry PI see [Raspberry PI Docker Installation Guide](https://dev.to/rohansawant/installing-docker-and-docker-compose-on-the-raspberry-pi-in-5-simple-steps-3mgl).
 
@@ -55,7 +52,6 @@ docker-compose down
 
 
 ## Examples
------------
 
 To send commands to the stove see:
 
@@ -67,18 +63,15 @@ To retrieve the stove's infomation, see `examples/read.py`.
 See also `musa/src/cfg.py` for the configuration parameters.
 
 ## Credits
------------
 
 [Chibald maestrogateway](https://github.com/Chibald/maestrogateway) and [Anthony-55 Maestro](https://github.com/Anthony-55/maestro)
 
 
 ## Diclaimer
------------
 
 **If** anyone will ever use this code, I do not take any responsability. Do not play with fire.
 
 
 ## License
------------
 
 This project is licensed under the WTFPL License.
