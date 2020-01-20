@@ -13,6 +13,12 @@ To run MCZ Musa Maestro Python Controller your smart home gateway device connect
 
 The first step is installing a MQTT message broker, for example [Mosquitto](https://mosquitto.org/download/).
 
+```bash
+sudo apt update
+sudo apt install -y mosquitto mosquitto-clients
+sudo systemctl enable mosquitto.service
+```
+
 Install, then, `python3.7+` dependencies with
 
 ```bash
