@@ -4,7 +4,7 @@ This program allows controlling remotely your **MCZ Musa** pellet stove and retr
 
 <div style="text-align:center;"><img src="./assets/mcz_musa.jpg"/></div>
 
-It has been tested on MCZ Musa Suite Comfort Air 12 M1.
+It has been tested on MCZ Musa Suite Comfort Air 12 M1 on a [Raspberry Pi Zero W](https://www.raspberrypi.org/products/raspberry-pi-zero-w/).
 
 
 ## Installation
@@ -31,6 +31,8 @@ After connecting to the stove's Wi-Fi, run
 ```
 python3 musa
 ```
+
+Or run `sudo bash install.sh`
 
 
 ### Containerization
