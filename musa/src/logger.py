@@ -1,6 +1,6 @@
 import logging
 import os
-from logging.handlers import RotatingFileHandler
+from logging.handlers import SysLogHandler
 
 
 def _get_logger(name: str) -> logging.Logger:
@@ -10,12 +10,10 @@ def _get_logger(name: str) -> logging.Logger:
         "[MCZ MUSA %(name)s][%(asctime)s][%(levelname)s] %(message)s"
     )
 
-    file_handler = RotatingFileHandler(
-        "/tmp/mcz_musa.log", maxBytes=5000, backupCount=1
-    )
-    file_handler.setLevel(logging.DEBUG)
-    file_handler.setFormatter(formatter)
-    logger.addHandler(file_handler)
+    syslog_handler = logging.handlers.SysLogHandler()
+    syslog_handler.setLevel(logging.DEBUG)
+    syslog_handler.setFormatter(formatter)
+    logger.addHandler(syslog_handler)
 
     stream_handler = logging.StreamHandler()
     stream_handler.setLevel(logging.DEBUG)
