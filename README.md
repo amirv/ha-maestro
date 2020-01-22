@@ -1,6 +1,6 @@
-# MCZ Musa Maestro Python Controller
+# MCZ Musa Python Controller
 
-This program allows controlling remotely your **MCZ Musa** pellet stove and retrieve its status. MCZ Musa Maestro Python Controller uses a MQTT broker to receive JSON commands, convert and send them to the MCZ Musa through a Web Socket connection.
+This program allows controlling remotely your **MCZ Musa** pellet stove and retrieve its status. MCZ Musa Python Controller uses a MQTT broker to receive JSON commands, convert and send them to the MCZ Musa through a Web Socket connection.
 
 <div style="text-align:center;"><img src="./assets/mcz_musa.jpg"/></div>
 
@@ -9,7 +9,7 @@ It has been tested on MCZ Musa Suite Comfort Air 12 M1 on a [Raspberry Pi Zero W
 
 ## Installation
 
-To run MCZ Musa Maestro Python Controller your smart home gateway device connection must be bridged between the stove internal Wi-Fi and your local network. It can be achieved easily with a Raspberry Pi device and, if an Ethernet port is not available, a (Micro) USB-Ethernet adapter.
+To run MCZ Musa Python Controller your smart home gateway device connection must be bridged between the stove internal Wi-Fi and your local network. It can be achieved easily with a Raspberry Pi device and, if an Ethernet port is not available, a (Micro) USB-Ethernet adapter.
 
 The first step is installing a MQTT message broker, for example [Mosquitto](https://mosquitto.org/download/).
 
@@ -37,7 +37,7 @@ Or run `sudo bash install.sh`
 
 ### Containerization
 
-An alternative to MCZ Musa Maestro Python Controller installation is its `docker` containerization, with lightweight Alpine images. It requires the installation of [docker](https://docs.docker.com/install/) and [docker-compose](https://docs.docker.com/compose/install/). For Raspberry PI see [Raspberry PI Docker Installation Guide](https://dev.to/rohansawant/installing-docker-and-docker-compose-on-the-raspberry-pi-in-5-simple-steps-3mgl).
+An alternative to MCZ Musa Python Controller installation is its `docker` containerization, with lightweight Alpine images. It requires the installation of [docker](https://docs.docker.com/install/) and [docker-compose](https://docs.docker.com/compose/install/). For Raspberry PI see [Raspberry PI Docker Installation Guide](https://dev.to/rohansawant/installing-docker-and-docker-compose-on-the-raspberry-pi-in-5-simple-steps-3mgl).
 
 
 After the installation and the connection of your device with the stove's Wi-Fi, simply run the MQTT broker and the Python Controller with
@@ -45,7 +45,7 @@ After the installation and the connection of your device with the stove's Wi-Fi,
 ```bash
 # download eclipse-mosquitto base image
 docker pull eclipse-mosquitto
-# build the MCZ Musa Maestro Python Controller image
+# build the MCZ Musa Python Controller image
 docker-compose build
 # run the container (detached)
 docker-compose up -d
@@ -72,7 +72,7 @@ See also `musa/src/cfg.py` for the configuration parameters.
 
 ## Credits
 
-[Chibald maestrogateway](https://github.com/Chibald/maestrogateway) and [Anthony-55 Maestro](https://github.com/Anthony-55/maestro)
+[Chibald maestrogateway](https://github.com/Chibald/maestrogateway) and [Anthony-55](https://github.com/Anthony-55/maestro)
 
 
 ## Diclaimer
