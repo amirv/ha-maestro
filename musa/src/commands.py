@@ -33,7 +33,7 @@ MAESTRO_COMMANDS = {
     "get_info": MCZCommand("get_info", 0, "get_info"),
     "power": MCZCommand("power", 34, "onoff40"),
     "chrono": MCZCommand("chrono", 1111, "onoff"),
-    "silent_mode": MCZCommand("silent_mode", 45, "onoff"),
+    "silent": MCZCommand("silent", 45, "onoff"),
     "active_mode": MCZCommand("active_mode", 35, "onoff"),
     "eco_mode": MCZCommand("eco_mode", 41, "onoff"),
     "room_temperature": MCZCommand("room_temperature", 42, "temperature"),
