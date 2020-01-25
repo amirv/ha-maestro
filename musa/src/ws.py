@@ -38,7 +38,10 @@ def on_open(ws: websocket.WebSocketApp) -> NoReturn:
                 command, value = COMMAND_QUEUE.get()
                 ws_message = commands.format_websocket_message(command, value)
                 log.info(f"Sending message: {ws_message}")
-                ws.send(ws_message)
+                try:
+                    ws.send(ws_message)
+                except Exception as e:
+                    log.error(f"Web Socket connection error {e}")
 
     thread.start_new_thread(run, ())
 
@@ -60,6 +63,8 @@ def on_message(ws: websocket.WebSocketApp, message: str) -> NoReturn:
 
 def on_error(ws: websocket.WebSocketApp, error: str) -> NoReturn:
     log.info(f"WebSocket error: {error}")
+    if isinstance(error, KeyboardInterrupt):
+        raise KeyboardInterrupt
 
 
 def _connect() -> NoReturn:
@@ -73,7 +78,14 @@ def _connect() -> NoReturn:
         on_message=on_message,
         on_error=on_error,
     )
-    ws.run_forever(ping_interval=5, ping_timeout=2)
+    while True:
+        try:
+            ws.run_forever(ping_interval=5, ping_timeout=2)
+        except KeyboardInterrupt:
+            log.info("Connection interrupted by user")
+            break
+        except:
+            pass
 
 
 def connect() -> NoReturn:
@@ -81,10 +93,4 @@ def connect() -> NoReturn:
     Connect to MCZ Musa Web Socket and keep the connection alive.
     """
     log.info("Connecting to MCZ MUSA")
-    try:
-        while True:
-            _connect()
-            log.info("Web Socket connection lost. Reconnecting to MCZ MUSA in 1 second")
-            time.sleep(1)
-    except KeyboardInterrupt:
-        log.info("Web Socket connection interrupted by user")
+    _connect()
