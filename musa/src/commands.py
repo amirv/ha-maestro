@@ -41,8 +41,8 @@ MAESTRO_COMMANDS = {
     "chrono_t1": MCZCommand("chrono_t1", 1108, "temperature"),
     "chrono_t2": MCZCommand("chrono_t2", 1109, "temperature"),
     "chrono_t3": MCZCommand("chrono_t3", 1110, "temperature"),
-    # 0: auto mode, 1: manual mode
-    "manual_control_mode": MCZCommand("manual_control_mode", 40, "onoff"),
+    # 1: auto mode, 0: manual mode
+    "auto_control_mode": MCZCommand("auto_control_mode", 40, "onoff"),
     "sound_effects": MCZCommand("sound_effects", 50, "onoff"),
     # 0, 1, 2, 3, 4, 5, 6
     # stove front fan (Air Fan)
@@ -50,9 +50,9 @@ MAESTRO_COMMANDS = {
     # lower-back fan level (Ducted 1)
     "lower_back_fan": MCZCommand("lower_back_fan", 38, "int"),
     # lower-top fan level (Ducted 2)
-    "lower_top_fan": MCZCommand("top_back_fan", 39, "int"),
-    # manual power level
-    "power_level": MCZCommand("power_level", 36, "int"),
+    "top_back_fan": MCZCommand("top_back_fan", 39, "int"),
+    # manual power level [10, 11, 12, 13, 14, 15]
+    "power_level": MCZCommand("power_level", 36, "int10"),
 }
 
 
@@ -105,6 +105,8 @@ def format_websocket_message(
         value = int(value)
         if mcz_command.command_type == "temperature":
             value = value * 2
+        elif mcz_command.command_type == "int10":
+            value = value + 10
         elif mcz_command.command_type == "onoff40":
             value = 40 if not value else 1
         elif mcz_command.command_type == "onoff":
