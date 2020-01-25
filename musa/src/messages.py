@@ -22,7 +22,7 @@ class MCZInformation:
 
 MAESTRO_INFORMATION = [
     MCZInformation(0, "message_type", "message_type"),
-    MCZInformation(1, "stove_state", "int"),
+    MCZInformation(1, "power", "onoff40"),
     MCZInformation(2, "front_fan", "int"),
     MCZInformation(3, "lower_back_fan", "int"),
     MCZInformation(4, "top_back_fan", "int"),
@@ -43,15 +43,14 @@ MAESTRO_INFORMATION = [
     MCZInformation(19, "modbus_address", "int"),
     MCZInformation(20, "active_mode", "int"),
     MCZInformation(21, "active_live", "int"),
-    # 0: auto mode, 1: manual mode
-    MCZInformation(22, "manual_control_mode", "int"),
+    MCZInformation(22, "auto_control_mode", "int"),
     MCZInformation(23, "eco", "int"),
     MCZInformation(24, "silent", "int"),
     MCZInformation(25, "chrono", "int"),
     MCZInformation(26, "room_temperature", "temperature"),
     MCZInformation(27, "boiler_temperature", "temperature"),
     MCZInformation(28, "motherboard_temperature", "temperature"),
-    MCZInformation(29, "power_level", "int"),
+    MCZInformation(29, "power_level", "int10"),
     MCZInformation(30, "firmware_version", "int"),
     MCZInformation(31, "database_id", "int"),
     MCZInformation(32, "hour", "date-H"),
@@ -144,7 +143,11 @@ def websocket_message_to_dict(message: str) -> Dict[str, Union[float, int, str]]
     for idx, content in enumerate(message):
         info = get_mcz_info(idx)
         content = int(content, 16)
-        if info.message_type == "temperature":
+        if info.message_type == "onoff40":
+            result[info.name] = 0 if content == 40 else 1
+        elif info.message_type == "int10":
+            result[info.name] = content - 10
+        elif info.message_type == "temperature":
             result[info.name] = float(content) / 2
         elif info.message_type == "timespan":
             result[info.name] = format_seconds(content)
@@ -156,7 +159,7 @@ def websocket_message_to_dict(message: str) -> Dict[str, Union[float, int, str]]
             date_part = info.message_type[-1]
             content = str(content)
             content = (
-                "0" + content if date_part == "m" and len(content) == 1 else content
+                "0" + content if len(content) == 1 else content
             )
             date = date.replace(date_part, str(content))
         else:
