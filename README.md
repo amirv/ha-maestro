@@ -4,7 +4,7 @@ This program allows controlling remotely your **MCZ Musa** pellet stove and retr
 
 <div style="text-align:center;"><img src="./assets/mcz_musa.jpg"/></div>
 
-It has been tested on MCZ Musa Suite Comfort Air 12 M1 on a [Raspberry Pi Zero W](https://www.raspberrypi.org/products/raspberry-pi-zero-w/).
+It has been tested on MCZ Musa Suite Comfort Air 12 M1 on a [Raspberry Pi Zero W](https://www.raspberrypi.org/products/raspberry-pi-zero-w/). Basic commands should be compatible with all [Maestro powered stoves](https://www.mcz.it/en/maestro-technology/).
 
 
 ## Installation
@@ -66,9 +66,15 @@ To send commands to the stove see:
 - `examples/publish.py`: message pubblication examples;
 - `musa/src/commands.py`: list of all known commands.
 
-To retrieve the stove's infomation, see `examples/read.py`.
+To retrieve the stove's infomation, see `examples/read.py`. See also `musa/src/cfg.py` for the configuration parameters.
 
-See also `musa/src/cfg.py` for the configuration parameters.
+
+### Integration with existing apps
+
+**Sending messages**: your app should be able to publish messages on `/mcz/in` MQTT channel.
+
+**Receiving results**: listen to `/mcz/out` MQTT channer or eventually, change the `musa/src/ws.py` function `on_message` to send Web Socket parsed messages directly to your app.
+
 
 ## Credits
 
