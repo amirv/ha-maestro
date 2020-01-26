@@ -6,13 +6,13 @@ import time
 import paho.mqtt.client as mqtt
 
 
-MQTT_IP = '127.0.0.1'
+MQTT_IP = "127.0.0.1"
 MQTT_PORT = 1883
-MQTT_TOPIC_OUT = '/mcz/out'
+MQTT_TOPIC_OUT = "/mcz/out"
 
 
 def on_message(client, userdata, message):
-    print(f'Message received {message.payload.decode()}')
+    print(f"Message received {message.payload.decode()}")
 
 
 client = mqtt.Client()
@@ -23,5 +23,5 @@ client.loop_start()
 
 
 while True:
-    print('MQTT connection is active')
+    print("MQTT connection is active")
     time.sleep(60)

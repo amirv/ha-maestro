@@ -5,12 +5,12 @@ import json
 import paho.mqtt.client as mqtt
 
 
-MQTT_IP = '127.0.0.1'
+MQTT_IP = "127.0.0.1"
 MQTT_PORT = 1883
-MQTT_TOPIC_IN = '/mcz/in'
+MQTT_TOPIC_IN = "/mcz/in"
 
 
-get_info = { 'command': 'get_info', 'value': 1 }
+get_info = {"command": "get_info", "value": 1}
 # power_on = { 'command': 'power', 'value': 1 }
 # power_off = { 'command': 'power', 'value': 0 }
 # temperature = { 'command': 'room_temperature', 'value': 24 }
