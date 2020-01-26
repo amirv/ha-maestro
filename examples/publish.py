@@ -17,6 +17,8 @@ get_info = {"command": "get_info", "value": 1}
 # fan_state_front = { 'command': 'front_fan', 'value': 1 }
 # fan_state_lower_back = { 'command': 'lower_back_fan', 'value': 1 }
 # fan_state_lower_top = { 'command': 'top_back_fan', 'value': 1 }
+# power_level = { 'command': 'power_level', 'value': 5 }
+
 
 client = mqtt.Client()
 client.connect(MQTT_IP, MQTT_PORT)
