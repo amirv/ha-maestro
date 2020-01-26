@@ -104,7 +104,7 @@ def format_websocket_message(
         ws_message = "C|WriteParametri"
         value = int(value)
         if mcz_command.command_type == "temperature":
-            value = value * 2
+            value = int(value * 2)
         elif mcz_command.command_type == "onoff40":
             value = 40 if not value else 1
         elif mcz_command.command_type == "onoff":
