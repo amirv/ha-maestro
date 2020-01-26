@@ -22,7 +22,7 @@ class MCZInformation:
 
 MAESTRO_INFORMATION = [
     MCZInformation(0, "message_type", "message_type"),
-    MCZInformation(1, "power", "onoff40"),
+    MCZInformation(1, "power", "power"),
     MCZInformation(2, "front_fan", "int"),
     MCZInformation(3, "lower_back_fan", "int"),
     MCZInformation(4, "top_back_fan", "int"),
@@ -84,6 +84,20 @@ MAESTRO_INFORMATION = [
     MCZInformation(60, "antifreeze", "onoff"),
 ]
 
+POWER_MODE_DESCRIPTION = {
+    0: "Stove off",
+    40: "Shutting down",
+    6: "Clean Hot Mode",
+    7: "Load in Hot Mode",
+    8: "Start 1 to Warm Mode",
+    10: "Stabilization",
+    11: "Power 1",
+    12: "Power 2",
+    13: "Power 3",
+    14: "Power 4",
+    15: "Power 5",
+}
+
 
 def get_mcz_info(frame_id: int) -> MCZInformation:
     """
@@ -143,8 +157,9 @@ def websocket_message_to_dict(message: str) -> Dict[str, Union[float, int, str]]
     for idx, content in enumerate(message):
         info = get_mcz_info(idx)
         content = int(content, 16)
-        if info.message_type == "onoff40":
-            result[info.name] = 0 if content != 1 else 1
+        if info.message_type == "power":
+            result["power_mode_description"] = POWER_MODE_DESCRIPTION.get(content)
+            result[info.name] = 0 if content in [0, 40] else 1
         elif info.message_type == "int10":
             result[info.name] = content - 10
         elif info.message_type == "temperature":
@@ -158,9 +173,7 @@ def websocket_message_to_dict(message: str) -> Dict[str, Union[float, int, str]]
         elif info.message_type.startswith("date-"):
             date_part = info.message_type[-1]
             content = str(content)
-            content = (
-                "0" + content if len(content) == 1 else content
-            )
+            content = "0" + content if len(content) == 1 else content
             date = date.replace(date_part, str(content))
         else:
             result[info.name] = content
