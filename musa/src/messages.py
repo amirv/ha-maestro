@@ -144,7 +144,7 @@ def websocket_message_to_dict(message: str) -> Dict[str, Union[float, int, str]]
         info = get_mcz_info(idx)
         content = int(content, 16)
         if info.message_type == "onoff40":
-            result[info.name] = 0 if content == 40 else 1
+            result[info.name] = 0 if content != 1 else 1
         elif info.message_type == "int10":
             result[info.name] = content - 10
         elif info.message_type == "temperature":
