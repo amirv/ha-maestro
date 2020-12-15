@@ -89,6 +89,7 @@ def connect():
     client.on_connect = on_connect
     client.on_message = on_message
     client.on_error = on_error
+    log.info(f"About to connect to {cfg.MQTT_IP}:{cfg.MQTT_PORT}")
     client.connect(cfg.MQTT_IP, cfg.MQTT_PORT)
     client.loop_start()
     client.subscribe(f"{cfg.MQTT_TOPIC_IN}/#", qos=1)

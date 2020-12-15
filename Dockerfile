@@ -1,8 +1,15 @@
-FROM python:3.7-alpine
+ARG BUILD_FROM
+FROM $BUILD_FROM
 
-COPY ./requirements.txt /requirements.txt
-RUN pip3 install -r /requirements.txt && rm requirements.txt
+ENV LANG C.UTF-8
+
+RUN apk add --no-cache python3
+
+COPY ./get-pip.py ./get-pip.py
+RUN python3 get-pip.py
+
+copy ./requirements.txt ./requirements.txt
+RUN pip3 install -r ./requirements.txt && rm ./requirements.txt
 
 COPY ./musa ./musa
-
-ENTRYPOINT [ "python3", "musa" ]
+CMD [ "python3", "musa" ]

@@ -1,10 +1,18 @@
-MQTT_IP = "127.0.0.1"
-MQTT_PORT = 1883
-MQTT_TOPIC_IN = "/mcz/in"
-MQTT_TOPIC_OUT = "/mcz/out"
+import json
 
-MCZ_IP = "192.168.120.1"
-MCZ_PORT = 81
-# MCZ Musa information retrieve interval and MQTT publication.
-# Set to 0, False or None to avoid this periodic message to be sent.
-INFO_INTERVAL = None
+with open("/data/options.json") as json_file:
+    data = json.load(json_file)
+
+MQTT_IP = data["mqtt_ip"]
+MQTT_PORT = data["mqtt_port"]
+MQTT_TOPIC_IN = data["mqtt_topic_in"]
+MQTT_TOPIC_CLIMATE = data["mqtt_topic_climate"]
+MQTT_TOPIC_SENSOR = data["mqtt_topic_sensor"]
+MQTT_AUTH = data["mqtt_auth"]
+MQTT_USER = data["mqtt_user"]
+MQTT_PASS = data["mqtt_pass"]
+
+MCZ_IP = data["mcz_ip"]
+MCZ_PORT = data["mcz_port"]
+
+INFO_INTERVAL = data["info_interval"]

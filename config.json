@@ -1,0 +1,37 @@
+{
+  "name": "MCZ Stove",
+  "version": "0.1.0",
+  "slug": "mcz-maestro-mod",
+  "description": "MCZ maestro addon",
+  "url": "https://github.com/amirv/ha-maestro.git",
+  "arch": ["armv7", "armhf", "amd64", "aarch64", "i386"],
+  "startup": "application",
+  "boot": "auto",
+  "map": ["config:rw"],
+  "options": {
+    "mqtt_ip": "172.30.32.1",
+    "mqtt_port": "1883",
+    "mqtt_topic_in": "homeassistant/livingroom",
+    "mqtt_topic_climate": "homeassistant/climate/livingroom",
+    "mqtt_topic_sensor": "homeassistant/sensor/livingroom",
+    "mqtt_auth": false,
+    "mqtt_user": "",
+    "mqtt_pass": "",
+    "mcz_ip": "192.168.120.1",
+    "mcz_port": "81",
+    "info_interval": "60"
+  },
+  "schema": {
+    "mqtt_ip": "str",
+    "mqtt_port": "port",
+    "mqtt_topic_in": "str",
+    "mqtt_topic_climate": "str",
+    "mqtt_topic_sensor": "str",
+    "mqtt_auth": "bool",
+    "mqtt_user": "str",
+    "mqtt_pass": "str",
+    "mcz_ip": "str",
+    "mcz_port": "port",
+    "info_interval": "int"
+  }
+}

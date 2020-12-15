@@ -1,0 +1,5 @@
+{
+  "name": "MCZ Musa stove websocket to MQTT gateway",
+  "url": "https://github.com/amirv/ha-maestro.git",
+  "maintainer": "Amir Vadai <amir@vadai.me>"
+}
