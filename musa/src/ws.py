@@ -36,8 +36,10 @@ def on_open(ws: websocket.WebSocketApp) -> NoReturn:
             time.sleep(0.25)
             while not COMMAND_QUEUE.empty():
                 command, value = COMMAND_QUEUE.get()
+                log.debug(f"command: {command} value: {value}")
+
                 ws_message = commands.format_websocket_message(command, value)
-                log.info(f"Sending message: {ws_message}")
+                log.debug(f"Sending message: {ws_message}")
                 try:
                     ws.send(ws_message)
                 except Exception as e:
@@ -52,17 +54,17 @@ def on_message(ws: websocket.WebSocketApp, message: str) -> NoReturn:
     """
     if message.split("|")[0] == "01":
         # Info message code: 01
-        log.info("Info message received")
+        log.debug("Info message received")
         parsed_message = messages.websocket_message_to_dict(message)
         client = mqtt.connect()
-        log.info(f"Publishing message to MQTT: {parsed_message}")
-        client.publish(cfg.MQTT_TOPIC_OUT, json.dumps(parsed_message), 1)
+        #log.info(f"Publishing message to MQTT: {parsed_message}")
+        client.publish(f"{cfg.MQTT_TOPIC_CLIMATE}/state", json.dumps(parsed_message), 1)
     else:
-        log.info(f"Unsupported message received {message}")
+        log.warn(f"Unsupported message received {message}")
 
 
 def on_error(ws: websocket.WebSocketApp, error: str) -> NoReturn:
-    log.info(f"WebSocket error: {error}")
+    log.warn(f"WebSocket error: {error}")
     if isinstance(error, KeyboardInterrupt):
         raise KeyboardInterrupt
 
