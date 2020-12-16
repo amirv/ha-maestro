@@ -98,7 +98,7 @@ def connect():
     client.message_callback_add(f"{cfg.MQTT_TOPIC_IN}/mode", on_mode)
 
     config = {
-                "name":"Livingroom",
+                "name":"stove",
                 "mode_cmd_t": f"{MQTT_TOPIC_IN}/mode",
                 "mode_stat_t": f"{MQTT_TOPIC_CLIMATE}/state",
                 "mode_stat_tpl": "{%- if value_json.power == 0 %}off{% else %}heat{% endif -%}",
@@ -116,7 +116,7 @@ def connect():
     client.publish(f"{MQTT_TOPIC_CLIMATE}/config", json.dumps(config), retain = True, qos = 1)
 
     config = {
-                "name":"Stove state",
+                "name":"stove",
                 "state_topic": f"{MQTT_TOPIC_CLIMATE}/state",
                 "value_template": "{{ value_json.power_mode_description }}",
                 "json_attributes_topic": f"{MQTT_TOPIC_CLIMATE}/state",

@@ -43,6 +43,11 @@ After having a wifi connection to the stove need to install the addons:
 1. Install the MQTT addon
 2. Install this addon, configure and start
 
+## Home Assistant
+After finishing the installation, the addon will configure HA to have 2 new devices:
+1. climate.stove - a climate device to display and control the stove state
+2. sensor.stove - a sensor device with detailed status of the stove as attributes
+
 ## Credits
 
 [nbordin](https://github.com/nbordin/mcz_musa) and [Chibald maestrogateway](https://github.com/Chibald/maestrogateway) and [Anthony-55](https://github.com/Anthony-55/maestro)
