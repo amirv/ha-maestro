@@ -46,7 +46,7 @@ def on_open(ws: websocket.WebSocketApp) -> NoReturn:
                     log.error(f"Web Socket connection error {e}")
                     ws.close()
 
-            log.warn("COMMAND_QUEUE thread exited")
+        log.warn("COMMAND_QUEUE thread exited")
 
     thread.start_new_thread(run, ())
 
