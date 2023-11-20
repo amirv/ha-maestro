@@ -32,7 +32,7 @@ def on_open(ws: websocket.WebSocketApp) -> NoReturn:
     log.info("Successfully connected. Consuming message on MQTT queue")
 
     def run():
-        while True:
+        while ws.keep_running:
             time.sleep(0.25)
             while not COMMAND_QUEUE.empty():
                 command, value = COMMAND_QUEUE.get()
@@ -44,6 +44,9 @@ def on_open(ws: websocket.WebSocketApp) -> NoReturn:
                     ws.send(ws_message)
                 except Exception as e:
                     log.error(f"Web Socket connection error {e}")
+                    ws.close()
+
+            log.warn("COMMAND_QUEUE thread exited")
 
     thread.start_new_thread(run, ())
 
@@ -82,12 +85,13 @@ def _connect() -> NoReturn:
     )
     while True:
         try:
-            ws.run_forever(ping_interval=5, ping_timeout=2,reconnect=10)
+            ws.run_forever(ping_interval=5, ping_timeout=2)
         except KeyboardInterrupt:
             log.info("Connection interrupted by user")
             break
         except:
-            pass
+            ws.close()
+            time.sleep(5)
 
 
 def connect() -> NoReturn:
