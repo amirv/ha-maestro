@@ -1,6 +1,6 @@
 name: "MCZ Stove"
 description: "MCZ maestro addon"
-version: "0.2.0"
+version: "0.2.1"
 slug: "mcz-maestro-mod"
 init: false
 arch:

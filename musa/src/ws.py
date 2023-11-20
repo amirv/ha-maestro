@@ -82,7 +82,7 @@ def _connect() -> NoReturn:
     )
     while True:
         try:
-            ws.run_forever(ping_interval=5, ping_timeout=2)
+            ws.run_forever(ping_interval=5, ping_timeout=2,reconnect=10)
         except KeyboardInterrupt:
             log.info("Connection interrupted by user")
             break
